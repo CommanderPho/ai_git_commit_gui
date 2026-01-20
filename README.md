@@ -416,4 +416,4 @@ For questions or suggestions, please contact us via:
 # Donate
 ![alt text](image-1.png)
 
-<!-- 测试路径解析修复 -->
+<!-- Test path parsing fix -->
