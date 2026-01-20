@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-AI接口模块
-提供与GLM-4-Flash AI模型的交互功能
+AI Interface Module
+Provides interaction functionality with the GLM-4-Flash AI model
 """
 
 import json
@@ -13,16 +13,16 @@ import os
 
 
 class GLMInterface:
-    """GLM-4-Flash AI接口类"""
+    """GLM-4-Flash AI Interface class"""
     
     def __init__(self, api_key, base_url: str = "https://api.kenhong.com/v1", model: str = "glm-4-flash"):
         """
-        初始化AI接口
+        Initialize AI interface
 
         Args:
-            api_key: API密钥
-            base_url: API基础URL
-            model: AI模型名称
+            api_key: API key
+            base_url: API base URL
+            model: AI model name
         """
         self.api_key = api_key
         self.base_url = base_url.rstrip('/')
@@ -34,19 +34,19 @@ class GLMInterface:
                 temperature: float = 0.7, 
                 max_tokens: int = 2000) -> Optional[str]:
         """
-        调用AI接口进行文本处理
+        Call AI interface for text processing
         
         Args:
-            prompt: 提示词
-            content: 要处理的内容
-            temperature: 温度参数，控制输出随机性
-            max_tokens: 最大输出token数
+            prompt: Prompt text
+            content: Content to process
+            temperature: Temperature parameter, controls output randomness
+            max_tokens: Maximum output token count
             
         Returns:
-            AI的响应文本，失败时返回None
+            AI response text, or None if failed
         """
         try:
-            # 构建请求消息
+            # Build request message
             messages = [
                 {
                     "role": "system",
@@ -58,7 +58,7 @@ class GLMInterface:
                 }
             ]
             
-            # 构建请求数据
+            # Build request data
             request_data = {
                 "model": self.model,
                 "messages": messages,
@@ -67,13 +67,13 @@ class GLMInterface:
                 "stream": False
             }
             
-            # 设置请求头
+            # Set request headers
             headers = {
                 "Content-Type": "application/json",
                 "Authorization": f"Bearer {self.api_key}"
             }
             
-            # 发送请求（带重试机制）
+            # Send request (with retry mechanism)
             for attempt in range(self.max_retries):
                 try:
                     response = requests.post(
@@ -86,41 +86,41 @@ class GLMInterface:
                     if response.status_code == 200:
                         result = response.json()
                         
-                        # 检查响应格式
+                        # Check response format
                         if "choices" in result and len(result["choices"]) > 0:
                             return result["choices"][0]["message"]["content"].strip()
                         else:
-                            print(f"警告: 响应格式异常: {result}")
+                            print(f"Warning: Abnormal response format: {result}")
                             return None
                     
-                    elif response.status_code == 429:  # 速率限制
-                        wait_time = 2 ** attempt  # 指数退避
-                        print(f"速率限制，等待 {wait_time} 秒后重试...")
+                    elif response.status_code == 429:  # Rate limit
+                        wait_time = 2 ** attempt  # Exponential backoff
+                        print(f"Rate limited, waiting {wait_time} seconds before retry...")
                         time.sleep(wait_time)
                         continue
                     
                     else:
-                        print(f"API请求失败: {response.status_code}")
-                        print(f"响应内容: {response.text}")
+                        print(f"API request failed: {response.status_code}")
+                        print(f"Response content: {response.text}")
                         return None
                 
                 except requests.exceptions.Timeout:
-                    print(f"请求超时，尝试 {attempt + 1}/{self.max_retries}")
+                    print(f"Request timeout, attempt {attempt + 1}/{self.max_retries}")
                     if attempt < self.max_retries - 1:
                         time.sleep(1)
                         continue
                     else:
-                        print("请求超时，已达到最大重试次数")
+                        print("Request timeout, maximum retries reached")
                         return None
                 
                 except requests.exceptions.RequestException as e:
-                    print(f"网络请求错误: {e}")
+                    print(f"Network request error: {e}")
                     return None
             
             return None
             
         except Exception as e:
-            print(f"AI接口调用失败: {e}")
+            print(f"AI interface call failed: {e}")
             return None
     
    
@@ -166,87 +166,87 @@ class GLMInterface:
 
 def create_ai_interface(api_key, base_url: str = "https://api.kenhong.com/v1", model: str = "glm-4-flash") -> GLMInterface:
     """
-    创建AI接口实例
+    Create AI interface instance
 
     Args:
-        api_key: API密钥
-        base_url: API基础URL
-        model: AI模型名称
+        api_key: API key
+        base_url: API base URL
+        model: AI model name
 
     Returns:
-        GLMInterface实例
+        GLMInterface instance
     """
     return GLMInterface(api_key, base_url, model)
 
 
 def test_ai_interface():
-    """测试AI接口功能"""
-    # 这里需要实际的API密钥
+    """Test AI interface functionality"""
+    # Actual API key is required here
     api_key = "your-api-key-here"
     
     if api_key == "your-api-key-here":
-        print("请设置有效的API密钥进行测试")
+        print("Please set a valid API key for testing")
         return
     
     ai = create_ai_interface(api_key)
     
-    # 测试基本调用
+    # Test basic call
     test_content = """
-    文件: main.py (修改)
-    变更内容:
+    File: main.py (Modified)
+    Changes:
     + def new_function():
     +     return "Hello World"
     - def old_function():
     -     return "Goodbye"
     """
     
-    print("测试AI总结功能...")
+    print("Testing AI summary functionality...")
     summary = ai.summarize_git_changes(test_content)
     if summary:
-        print("AI总结结果:")
+        print("AI summary result:")
         print(summary)
     else:
-        print("AI总结失败")
+        print("AI summary failed")
     
-    print("\n测试提交消息生成...")
+    print("\nTesting commit message generation...")
     commit_msg = ai.generate_commit_message(test_content)
     if commit_msg:
-        print("建议的提交消息:")
+        print("Suggested commit message:")
         print(commit_msg)
     else:
-        print("提交消息生成失败")
+        print("Commit message generation failed")
 
 
 def demo_commit_message():
-    """演示提交消息生成功能"""
-    print("\n\n📝 提交消息生成演示")
+    """Demo commit message generation functionality"""
+    print("\n\n📝 Commit Message Generation Demo")
     print("=" * 50)
     sample_changes = """
-文件: src/auth.py (修改)
-- 修复了用户登录验证的bug
-- 添加了密码强度检查
-- 优化了错误处理逻辑
-文件: tests/test_auth.py (新增)
-- 添加了用户认证的单元测试
-- 覆盖了各种边界情况
+File: src/auth.py (Modified)
+- Fixed user login verification bug
+- Added password strength check
+- Optimized error handling logic
+File: tests/test_auth.py (New)
+- Added unit tests for user authentication
+- Covered various edge cases
 """
     api_key = os.getenv("GLM_API_KEY", "")
     if not api_key:
-        print("⚠️  需要API密钥，跳过演示")
+        print("⚠️  API key required, skipping demo")
         return
     try:
-        print("🔄 正在生成提交消息...")
+        print("🔄 Generating commit message...")
         ai = GLMInterface(api_key)
         commit_msg = ai.generate_commit_message(sample_changes)
         if commit_msg:
-            print("\n✅ 建议的提交消息:")
+            print("\n✅ Suggested commit message:")
             print("-" * 30)
             print(commit_msg)
             print("-" * 30)
         else:
-            print("\n❌ 提交消息生成失败")
+            print("\n❌ Commit message generation failed")
     except Exception as e:
-        print(f"\n❌ 提交消息生成失败: {e}")
+        print(f"\n❌ Commit message generation failed: {e}")
 
 
 
