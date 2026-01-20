@@ -1,154 +1,154 @@
-# Git AI Commit 升级指南
+# Git AI Commit Upgrade Guide
 
-本指南介绍如何将 Git AI Commit 工具升级到最新版本。
+This guide explains how to upgrade the Git AI Commit tool to the latest version.
 
-## 🔍 检查当前版本
+## 🔍 Check Current Version
 
-首先检查您当前安装的版本：
+First, check your currently installed version:
 
 ```bash
 git-ai-commit-gui --help
 ```
 
-或者在GUI界面中查看版本信息。
+Or view version information in the GUI interface.
 
-## 🚀 升级方法
+## 🚀 Upgrade Methods
 
-### 方法1：使用 uv tool (推荐)
+### Method 1: Using uv tool (Recommended)
 
-如果您是通过 `uv tool install` 安装的：
+If you installed via `uv tool install`:
 
 ```bash
-# 升级到最新版本
+# Upgrade to latest version
 uv tool upgrade git-ai-commit-gui
 
-# 验证升级结果
+# Verify upgrade result
 git-ai-commit-gui --help
 ```
 
-**如果升级失败，可以尝试重新安装：**
+**If upgrade fails, try reinstalling:**
 ```bash
-# 卸载旧版本
+# Uninstall old version
 uv tool uninstall git-ai-commit-gui
 
-# 安装最新版本
+# Install latest version
 uv tool install git-ai-commit-gui
 ```
 
-### 方法2：使用 pip
+### Method 2: Using pip
 
-如果您是通过 `pip install` 安装的：
+If you installed via `pip install`:
 
 ```bash
-# 升级到最新版本
+# Upgrade to latest version
 pip install --upgrade git-ai-commit-gui
 
-# 验证升级结果
+# Verify upgrade result
 git-ai-commit-gui --help
 ```
 
-**如果升级失败，可以尝试强制重新安装：**
+**If upgrade fails, try forcing reinstall:**
 ```bash
-# 强制重新安装
+# Force reinstall
 pip install --force-reinstall git-ai-commit-gui
 ```
 
-### 方法3：从源码升级
+### Method 3: Upgrade from Source
 
-如果您是从GitHub源码安装的：
+If you installed from GitHub source:
 
 ```bash
-# 进入项目目录
+# Enter project directory
 cd ai_git_commit_gui
 
-# 拉取最新代码
+# Pull latest code
 git pull origin main
 
-# 使用uv更新依赖
+# Update dependencies with uv
 uv sync
 
-# 或者使用pip重新安装
+# Or reinstall with pip
 pip install -e .
 ```
 
-## ✅ 验证升级
+## ✅ Verify Upgrade
 
-升级完成后，验证新版本是否正常工作：
+After upgrade, verify the new version is working properly:
 
 ```bash
-# 检查版本信息
+# Check version information
 git-ai-commit-gui --help
 
-# 测试基本功能
+# Test basic functionality
 git-ai-commit-gui --auto
 ```
 
-## 🔧 升级故障排除
+## 🔧 Upgrade Troubleshooting
 
-### 问题1：升级后命令找不到
+### Issue 1: Command Not Found After Upgrade
 
-**解决方案：**
+**Solution:**
 ```bash
-# 重新安装
+# Reinstall
 uv tool uninstall git-ai-commit-gui
 uv tool install git-ai-commit-gui
 
-# 或者检查PATH环境变量
+# Or check PATH environment variable
 echo $PATH
 ```
 
-### 问题2：依赖冲突
+### Issue 2: Dependency Conflicts
 
-**解决方案：**
+**Solution:**
 ```bash
-# 清理缓存
+# Clear cache
 pip cache purge
 
-# 重新安装
+# Reinstall
 pip uninstall git-ai-commit-gui
 pip install git-ai-commit-gui
 ```
 
-### 问题3：配置文件兼容性
+### Issue 3: Configuration File Compatibility
 
-新版本可能会更新配置文件格式。如果遇到配置问题：
+New versions may update the configuration file format. If you encounter configuration issues:
 
 ```bash
-# 备份现有配置
+# Backup existing configuration
 cp ~/.git_ai_commit/config.json ~/.git_ai_commit/config.json.backup
 
-# 删除配置文件，让程序重新生成
+# Delete configuration file to let the program regenerate it
 rm ~/.git_ai_commit/config.json
 
-# 重新启动程序并重新配置
+# Restart program and reconfigure
 git-ai-commit-gui
 ```
 
-## 📋 版本更新日志
+## 📋 Version Changelog
 
-### v0.2.0 (最新)
-- 功能改进和性能优化
-- 修复已知问题
-- 更新依赖版本
+### v0.2.0 (Latest)
+- Feature improvements and performance optimization
+- Fixed known issues
+- Updated dependency versions
 
 ### v0.1.1
-- 初始稳定版本
-- 基础功能完善
+- Initial stable release
+- Basic functionality complete
 
-## 🆘 获取帮助
+## 🆘 Getting Help
 
-如果升级过程中遇到问题：
+If you encounter issues during the upgrade:
 
-1. **查看错误日志**：注意升级过程中的错误信息
-2. **检查系统要求**：确保Python版本 >= 3.12
-3. **提交Issue**：在GitHub仓库提交问题报告
-4. **联系支持**：发送邮件至开发者邮箱
+1. **Check error logs**: Pay attention to error messages during the upgrade process
+2. **Check system requirements**: Ensure Python version >= 3.12
+3. **Submit an Issue**: Submit a bug report on the GitHub repository
+4. **Contact support**: Send an email to the developer
 
-## 📞 联系方式
+## 📞 Contact
 
 - GitHub Issues: https://github.com/duolabmeng6/ai_git_commit_gui/issues
-- 开发者邮箱: 1715109585@qq.com
+- Developer email: 1715109585@qq.com
 
 ---
 
-⚠️ **重要提示**：升级前建议备份重要的配置文件和数据。
+⚠️ **Important Note**: It's recommended to back up important configuration files and data before upgrading.

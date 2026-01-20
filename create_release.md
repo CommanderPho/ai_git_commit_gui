@@ -1,70 +1,70 @@
-# GitHub Release v0.2.1 发布说明
+# GitHub Release v0.2.1 Release Notes
 
-## 🎉 Git AI Commit v0.2.1 发布
+## 🎉 Git AI Commit v0.2.1 Released
 
-### 📋 版本信息
-- **版本号**: v0.2.1
-- **发布日期**: 2025-06-23
-- **兼容性**: Python 3.12+
+### 📋 Version Information
+- **Version**: v0.2.1
+- **Release Date**: 2025-06-23
+- **Compatibility**: Python 3.12+
 
-### ✨ 主要更新
+### ✨ Major Updates
 
-#### 🐛 重要修复
-- **修复Windows编码问题**: 解决了Windows环境下`UnicodeDecodeError: 'gbk' codec can't decode byte 0xa7`错误
-- **增强跨平台兼容性**: 添加了智能编码检测和多编码支持
-- **改进错误处理**: 提供更好的编码错误处理和调试信息
+#### 🐛 Critical Fixes
+- **Fixed Windows Encoding Issue**: Resolved `UnicodeDecodeError: 'gbk' codec can't decode byte 0xa7` error in Windows environment
+- **Enhanced Cross-platform Compatibility**: Added intelligent encoding detection and multi-encoding support
+- **Improved Error Handling**: Better encoding error handling and debug information
 
-#### 🔧 技术改进
-- 新增 `safe_subprocess_run()` 函数，支持UTF-8、GBK、GB2312等多种编码
-- 优化了所有Git命令调用的编码处理
-- 增强了Windows中文环境下的稳定性
+#### 🔧 Technical Improvements
+- Added `safe_subprocess_run()` function with support for UTF-8, GBK, GB2312 and other encodings
+- Optimized encoding handling for all Git command calls
+- Enhanced stability in Windows Chinese environment
 
-#### 🚀 自动模式优化
-- 修复了`--auto`模式在Windows环境下的编码问题
-- 提升了自动提交流程的可靠性
-- 改进了错误信息的显示
+#### 🚀 Auto Mode Optimization
+- Fixed encoding issues in `--auto` mode on Windows
+- Improved reliability of auto-commit workflow
+- Better error message display
 
-### 🚀 升级方法
+### 🚀 Upgrade Methods
 
-#### 使用 uv tool (推荐)
+#### Using uv tool (Recommended)
 ```bash
 uv tool upgrade git-ai-commit-gui
 ```
 
-#### 使用 pip
+#### Using pip
 ```bash
 pip install --upgrade git-ai-commit-gui
 ```
 
-#### 从源码升级
+#### Upgrade from Source
 ```bash
 git pull origin main
 uv sync
 ```
 
-### 📦 下载
+### 📦 Downloads
 
-- **Wheel包**: `git_ai_commit_gui-0.2.1-py3-none-any.whl`
-- **源码包**: `git_ai_commit_gui-0.2.1.tar.gz`
+- **Wheel Package**: `git_ai_commit_gui-0.2.1-py3-none-any.whl`
+- **Source Package**: `git_ai_commit_gui-0.2.1.tar.gz`
 
-### 🔗 相关链接
+### 🔗 Related Links
 
-- [PyPI页面](https://pypi.org/project/git-ai-commit-gui/)
-- [升级指南](UPGRADE_GUIDE.md)
-- [构建指南](BUILD_GUIDE.md)
-- [使用文档](README.md)
+- [PyPI Page](https://pypi.org/project/git-ai-commit-gui/)
+- [Upgrade Guide](UPGRADE_GUIDE.md)
+- [Build Guide](BUILD_GUIDE.md)
+- [User Documentation](README.md)
 
-### 🐛 问题反馈
+### 🐛 Issue Reporting
 
-如果在升级或使用过程中遇到问题，请：
-1. 查看 [升级指南](UPGRADE_GUIDE.md)
-2. 提交 [GitHub Issue](https://github.com/duolabmeng6/ai_git_commit_gui/issues)
-3. 联系开发者: 1715109585@qq.com
+If you encounter issues during upgrade or usage, please:
+1. Check the [Upgrade Guide](UPGRADE_GUIDE.md)
+2. Submit a [GitHub Issue](https://github.com/duolabmeng6/ai_git_commit_gui/issues)
+3. Contact developer: 1715109585@qq.com
 
-### 🙏 致谢
+### 🙏 Acknowledgments
 
-感谢所有用户的支持和反馈！
+Thank you for your support and feedback!
 
 ---
 
-**完整更新日志**: https://github.com/duolabmeng6/ai_git_commit_gui/compare/v0.2.0...v0.2.1
+**Complete Changelog**: https://github.com/duolabmeng6/ai_git_commit_gui/compare/v0.2.0...v0.2.1

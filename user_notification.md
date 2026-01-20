@@ -1,58 +1,58 @@
-# 🎉 Git AI Commit v0.2.0 已发布！
+# 🎉 Git AI Commit v0.2.0 Released!
 
-亲爱的用户，
+Dear Users,
 
-我们很高兴地宣布 **Git AI Commit v0.2.0** 正式发布！这个版本带来了重要的改进和优化。
+We are pleased to announce the official release of **Git AI Commit v0.2.0**! This version brings important improvements and optimizations.
 
-## 🚀 立即升级
+## 🚀 Upgrade Now
 
-### 一键升级命令
+### One-Click Upgrade Command
 
-**使用 uv tool (推荐):**
+**Using uv tool (Recommended):**
 ```bash
 uv tool upgrade git-ai-commit-gui
 ```
 
-**使用 pip:**
+**Using pip:**
 ```bash
 pip install --upgrade git-ai-commit-gui
 ```
 
-### 验证升级
+### Verify Upgrade
 ```bash
 git-ai-commit-gui --help
 ```
 
-## ✨ 主要更新
+## ✨ Major Updates
 
-- 🔄 **升级体验优化**: 更流畅的升级流程
-- 📚 **文档完善**: 新增详细的升级指南
-- 🛠️ **开发改进**: 优化了构建和发布流程
-- 🐛 **问题修复**: 修复了已知问题
+- 🔄 **Improved Upgrade Experience**: Smoother upgrade workflow
+- 📚 **Documentation Enhancement**: New detailed upgrade guide
+- 🛠️ **Development Improvements**: Optimized build and release process
+- 🐛 **Bug Fixes**: Fixed known issues
 
-## 📋 升级指南
+## 📋 Upgrade Guide
 
-详细的升级说明请查看：
-- [升级指南](https://github.com/duolabmeng6/ai_git_commit_gui/blob/main/UPGRADE_GUIDE.md)
-- [完整文档](https://github.com/duolabmeng6/ai_git_commit_gui/blob/main/README.md)
+For detailed upgrade instructions, please see:
+- [Upgrade Guide](https://github.com/duolabmeng6/ai_git_commit_gui/blob/main/UPGRADE_GUIDE.md)
+- [Complete Documentation](https://github.com/duolabmeng6/ai_git_commit_gui/blob/main/README.md)
 
-## 🆘 需要帮助？
+## 🆘 Need Help?
 
-如果升级过程中遇到任何问题：
+If you encounter any issues during the upgrade:
 
-1. **查看升级指南**: [UPGRADE_GUIDE.md](https://github.com/duolabmeng6/ai_git_commit_gui/blob/main/UPGRADE_GUIDE.md)
-2. **提交Issue**: [GitHub Issues](https://github.com/duolabmeng6/ai_git_commit_gui/issues)
-3. **联系我们**: 1715109585@qq.com
+1. **Check Upgrade Guide**: [UPGRADE_GUIDE.md](https://github.com/duolabmeng6/ai_git_commit_gui/blob/main/UPGRADE_GUIDE.md)
+2. **Submit an Issue**: [GitHub Issues](https://github.com/duolabmeng6/ai_git_commit_gui/issues)
+3. **Contact Us**: 1715109585@qq.com
 
-## 🔗 相关链接
+## 🔗 Related Links
 
-- [GitHub仓库](https://github.com/duolabmeng6/ai_git_commit_gui)
-- [PyPI页面](https://pypi.org/project/git-ai-commit-gui/)
-- [Release页面](https://github.com/duolabmeng6/ai_git_commit_gui/releases/tag/v0.2.0)
+- [GitHub Repository](https://github.com/duolabmeng6/ai_git_commit_gui)
+- [PyPI Page](https://pypi.org/project/git-ai-commit-gui/)
+- [Release Page](https://github.com/duolabmeng6/ai_git_commit_gui/releases/tag/v0.2.0)
 
-感谢您的支持！
+Thank you for your support!
 
 ---
 
-**Git AI Commit 开发团队**  
-2025年6月23日
+**Git AI Commit Development Team**  
+June 23, 2025
