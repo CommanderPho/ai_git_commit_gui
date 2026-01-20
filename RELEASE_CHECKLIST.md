@@ -1,64 +1,64 @@
-# Git AI Commit v0.2.1 发布检查清单
+# Git AI Commit v0.2.1 Release Checklist
 
-## ✅ 预发布检查
-- [x] 版本号已更新到 0.2.1
-- [x] 编码修复代码已实现并测试
-- [x] 包构建成功
-- [x] 命令行工具测试通过
-- [x] 发布说明已更新
+## ✅ Pre-release Checklist
+- [x] Version number updated to 0.2.1
+- [x] Encoding fix code implemented and tested
+- [x] Package build successful
+- [x] Command-line tool tests passed
+- [x] Release notes updated
 
-## 🚀 发布步骤
+## 🚀 Release Steps
 
-### 1. 发布到PyPI
+### 1. Publish to PyPI
 ```bash
-# 方法1：使用环境变量（推荐）
+# Method 1: Using environment variable (Recommended)
 export UV_PUBLISH_TOKEN='your-pypi-token'
 uv publish
 
-# 方法2：直接指定token
+# Method 2: Specify token directly
 uv publish --token YOUR_PYPI_TOKEN
 
-# 方法3：先测试发布
+# Method 3: Test publish first
 uv publish --index testpypi --token YOUR_TEST_PYPI_TOKEN
 ```
 
-### 2. 验证发布
+### 2. Verify Release
 ```bash
-# 等待几分钟后测试安装
+# Wait a few minutes then test installation
 pip install --upgrade git-ai-commit-gui==0.2.1
 
-# 或使用uv
+# Or use uv
 uv tool install git-ai-commit-gui==0.2.1 --force
 ```
 
-### 3. 创建GitHub Release
-- 使用 `create_release.md` 中的内容
-- 上传构建的wheel和tar.gz文件
-- 标签：v0.2.1
+### 3. Create GitHub Release
+- Use content from `create_release.md`
+- Upload built wheel and tar.gz files
+- Tag: v0.2.1
 
-### 4. 测试新版本
+### 4. Test New Version
 ```bash
-# 测试基本功能
+# Test basic functionality
 git-ai-commit-gui --help
 
-# 测试自动模式（Windows用户重点测试）
+# Test auto mode (Windows users focus on this)
 git-ai-commit-gui --auto
 ```
 
-## 🐛 本次修复内容
-- 修复Windows环境下的UnicodeDecodeError编码问题
-- 添加智能编码检测和多编码支持
-- 增强--auto模式稳定性
-- 改进错误处理和调试信息
+## 🐛 Changes in This Release
+- Fixed UnicodeDecodeError encoding issue in Windows environment
+- Added intelligent encoding detection and multi-encoding support
+- Enhanced --auto mode stability
+- Improved error handling and debug information
 
-## 📋 发布后任务
-- [ ] 发布到PyPI
-- [ ] 创建GitHub Release
-- [ ] 通知用户升级
-- [ ] 更新文档
-- [ ] 监控用户反馈
+## 📋 Post-release Tasks
+- [ ] Publish to PyPI
+- [ ] Create GitHub Release
+- [ ] Notify users to upgrade
+- [ ] Update documentation
+- [ ] Monitor user feedback
 
-## 🔗 相关链接
-- PyPI页面: https://pypi.org/project/git-ai-commit-gui/
-- GitHub仓库: https://github.com/duolabmeng6/ai_git_commit_gui
-- 问题反馈: https://github.com/duolabmeng6/ai_git_commit_gui/issues
+## 🔗 Related Links
+- PyPI page: https://pypi.org/project/git-ai-commit-gui/
+- GitHub repository: https://github.com/duolabmeng6/ai_git_commit_gui
+- Issue tracker: https://github.com/duolabmeng6/ai_git_commit_gui/issues

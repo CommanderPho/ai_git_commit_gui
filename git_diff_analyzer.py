@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-Git差异分析器
-用于读取本地Git仓库的未提交文件变更，并整理成适合AI总结的格式
+Git Diff Analyzer
+Reads uncommitted file changes from local Git repository and formats them for AI summarization
 """
 
 import subprocess
@@ -13,15 +13,15 @@ from utils import safe_subprocess_run
 
 
 class GitDiffAnalyzer:
-    """Git差异分析器类"""
+    """Git Diff Analyzer class"""
     
     def __init__(self, repo_path: str, max_lines: int = 200):
         """
-        初始化分析器
+        Initialize analyzer
         
         Args:
-            repo_path: Git仓库路径
-            max_lines: 最大显示行数限制
+            repo_path: Git repository path
+            max_lines: Maximum line display limit
         """
         self.repo_path = Path(repo_path).resolve()
         self.max_lines = max_lines
@@ -33,7 +33,7 @@ class GitDiffAnalyzer:
         }
     
     def validate_repo(self) -> bool:
-        """验证是否为有效的Git仓库"""
+        """Validate if it's a valid Git repository"""
         try:
             result = safe_subprocess_run(
                 ['git', 'rev-parse', '--git-dir'],
@@ -46,13 +46,13 @@ class GitDiffAnalyzer:
             return False
     
     def is_binary_file(self, file_path: str) -> bool:
-        """判断是否为二进制文件"""
-        # 通过扩展名判断
+        """Check if a file is binary"""
+        # Check by extension
         ext = Path(file_path).suffix.lower()
         if ext in self.binary_extensions:
             return True
         
-        # 通过Git判断
+        # Check via Git
         try:
             result = safe_subprocess_run(
                 ['git', 'diff', '--numstat', 'HEAD', '--', file_path],
@@ -60,8 +60,8 @@ class GitDiffAnalyzer:
                 capture_output=True
             )
             if result.returncode == 0 and result.stdout.strip():
-                # Git numstat输出格式: additions deletions filename
-                # 二进制文件显示为: - - filename
+                # Git numstat output format: additions deletions filename
+                # Binary files show as: - - filename
                 parts = result.stdout.strip().split('\t')
                 if len(parts) >= 2 and parts[0] == '-' and parts[1] == '-':
                     return True
@@ -71,9 +71,9 @@ class GitDiffAnalyzer:
         return False
     
     def get_unstaged_files(self) -> List[Dict[str, str]]:
-        """获取未暂存的文件列表"""
+        """Get list of unstaged files"""
         try:
-            # 获取工作区状态
+            # Get working tree status
             result = safe_subprocess_run(
                 ['git', 'status', '--porcelain'],
                 cwd=self.repo_path,
@@ -87,10 +87,10 @@ class GitDiffAnalyzer:
                     continue
 
                 status = line[:2]
-                # Git status格式: XY filename，其中XY是两个字符的状态，后面跟一个空格
+                # Git status format: XY filename, where XY is two-character status followed by a space
                 file_path = line[2:].strip() if len(line) > 2 else line.strip()
                 
-                # 解析文件状态
+                # Parse file status
                 file_status = 'unknown'
                 if status[0] == 'M' or status[1] == 'M':
                     file_status = 'modified'
@@ -112,36 +112,36 @@ class GitDiffAnalyzer:
             return files
         
         except subprocess.CalledProcessError as e:
-            raise Exception(f"获取文件状态失败: {e}")
+            raise Exception(f"Failed to get file status: {e}")
     
     def get_file_diff(self, file_path: str, file_status: str) -> Optional[str]:
-        """获取文件的差异内容"""
+        """Get file diff content"""
         try:
             if file_status == 'untracked':
-                # 新文件，显示全部内容
+                # New file, show all content
                 full_path = self.repo_path / file_path
                 if full_path.exists():
                     try:
                         with open(full_path, 'r', encoding='utf-8') as f:
                             content = f.read()
-                        return f"+++ 新增文件内容 +++\n{content}"
+                        return f"+++ New file content +++\n{content}"
                     except UnicodeDecodeError:
-                        return "+++ 新增文件 (二进制或编码问题) +++"
+                        return "+++ New file (binary or encoding issue) +++"
                 return None
             
             elif file_status == 'deleted':
-                # 删除的文件，显示原内容
+                # Deleted file, show original content
                 result = safe_subprocess_run(
                     ['git', 'show', f'HEAD:{file_path}'],
                     cwd=self.repo_path,
                     capture_output=True
                 )
                 if result.returncode == 0:
-                    return f"--- 删除文件内容 ---\n{result.stdout}"
-                return "--- 删除文件 (无法获取原内容) ---"
+                    return f"--- Deleted file content ---\n{result.stdout}"
+                return "--- Deleted file (unable to get original content) ---"
             
             else:
-                # 修改的文件，获取diff
+                # Modified file, get diff
                 result = safe_subprocess_run(
                     ['git', 'diff', 'HEAD', '--', file_path],
                     cwd=self.repo_path,
@@ -151,7 +151,7 @@ class GitDiffAnalyzer:
                 if result.returncode == 0 and result.stdout:
                     return result.stdout
                 
-                # 如果没有与HEAD的diff，可能是暂存区的变更
+                # If no diff with HEAD, might be staged changes
                 result = safe_subprocess_run(
                     ['git', 'diff', '--', file_path],
                     cwd=self.repo_path,
@@ -167,7 +167,7 @@ class GitDiffAnalyzer:
         return None
 
     def clean_diff_content(self, diff_content: str) -> str:
-        """清理diff内容，移除空行"""
+        """Clean diff content, remove empty lines"""
         if not diff_content:
             return diff_content
 
@@ -175,7 +175,7 @@ class GitDiffAnalyzer:
         cleaned_lines = []
 
         for line in lines:
-            # 跳过完全空白的行
+            # Skip completely blank lines
             if line.strip() == '':
                 continue
             cleaned_lines.append(line)
@@ -183,7 +183,7 @@ class GitDiffAnalyzer:
         return '\n'.join(cleaned_lines)
 
     def truncate_diff_content(self, diff_content: str) -> str:
-        """截取diff内容，保持删除和新增内容的平衡"""
+        """Truncate diff content, maintaining balance between deleted and added content"""
         if not diff_content:
             return diff_content
         
@@ -191,7 +191,7 @@ class GitDiffAnalyzer:
         if len(lines) <= self.max_lines:
             return diff_content
         
-        # 分离删除行和新增行
+        # Separate deleted and added lines
         deleted_lines = []
         added_lines = []
         context_lines = []
@@ -204,42 +204,42 @@ class GitDiffAnalyzer:
             else:
                 context_lines.append(line)
         
-        # 计算可用行数（减去上下文行）
+        # Calculate available lines (minus context lines)
         available_lines = self.max_lines - len(context_lines)
         if available_lines <= 0:
             return '\n'.join(context_lines[:self.max_lines])
         
-        # 删除和新增各占一半
+        # Deleted and added lines each get half
         half_lines = available_lines // 2
         
         truncated_deleted = deleted_lines[:half_lines]
         truncated_added = added_lines[:half_lines]
         
-        # 重新组合
+        # Recombine
         result_lines = context_lines.copy()
         
-        # 插入截取的删除行
+        # Insert truncated deleted lines
         if truncated_deleted:
             if len(deleted_lines) > half_lines:
-                truncated_deleted.append(f"... (省略{len(deleted_lines) - half_lines}行删除内容)")
+                truncated_deleted.append(f"... ({len(deleted_lines) - half_lines} deleted lines omitted)")
             result_lines.extend(truncated_deleted)
         
-        # 插入截取的新增行
+        # Insert truncated added lines
         if truncated_added:
             if len(added_lines) > half_lines:
-                truncated_added.append(f"... (省略{len(added_lines) - half_lines}行新增内容)")
+                truncated_added.append(f"... ({len(added_lines) - half_lines} added lines omitted)")
             result_lines.extend(truncated_added)
         
         return '\n'.join(result_lines)
     
     def analyze_repository(self) -> Dict:
-        """分析仓库并返回格式化结果"""
+        """Analyze repository and return formatted results"""
         if not self.validate_repo():
-            raise Exception(f"路径 '{self.repo_path}' 不是有效的Git仓库")
+            raise Exception(f"Path '{self.repo_path}' is not a valid Git repository")
         
         files = self.get_unstaged_files()
         
-        # 统计信息
+        # Statistics
         stats = {
             'modified': 0,
             'added': 0,
@@ -265,7 +265,7 @@ class GitDiffAnalyzer:
             }
             
             if is_binary:
-                detail['diff_content'] = f"二进制文件: {file_path}"
+                detail['diff_content'] = f"Binary file: {file_path}"
             else:
                 diff_content = self.get_file_diff(file_path, file_status)
                 if diff_content:
@@ -281,56 +281,56 @@ class GitDiffAnalyzer:
         }
     
     def format_output(self, analysis_result: Dict) -> str:
-        """格式化输出结果"""
+        """Format output results"""
         output = []
         
-        # 仓库信息
-        output.append(f"仓库路径: {analysis_result['repo_path']}")
+        # Repository info
+        output.append(f"Repository path: {analysis_result['repo_path']}")
         output.append("")
         
-        # 变更摘要
+        # Change summary
         stats = analysis_result['stats']
         summary_parts = []
         if stats.get('modified', 0) > 0:
-            summary_parts.append(f"{stats['modified']}个文件修改")
+            summary_parts.append(f"{stats['modified']} files modified")
         if stats.get('added', 0) > 0:
-            summary_parts.append(f"{stats['added']}个文件新增")
+            summary_parts.append(f"{stats['added']} files added")
         if stats.get('untracked', 0) > 0:
-            summary_parts.append(f"{stats['untracked']}个文件未跟踪")
+            summary_parts.append(f"{stats['untracked']} files untracked")
         if stats.get('deleted', 0) > 0:
-            summary_parts.append(f"{stats['deleted']}个文件删除")
+            summary_parts.append(f"{stats['deleted']} files deleted")
         if stats.get('renamed', 0) > 0:
-            summary_parts.append(f"{stats['renamed']}个文件重命名")
+            summary_parts.append(f"{stats['renamed']} files renamed")
         
         if summary_parts:
-            output.append(f"变更摘要: {', '.join(summary_parts)}")
+            output.append(f"Change summary: {', '.join(summary_parts)}")
         else:
-            output.append("变更摘要: 无未提交的变更")
+            output.append("Change summary: No uncommitted changes")
         
         output.append("")
         output.append("=" * 50)
-        output.append("文件变更详情")
+        output.append("File change details")
         output.append("=" * 50)
         
-        # 文件详情
+        # File details
         for file_detail in analysis_result['files']:
             output.append("")
             status_map = {
-                'modified': '修改',
-                'added': '新增',
-                'deleted': '删除',
-                'untracked': '未跟踪',
-                'renamed': '重命名'
+                'modified': 'Modified',
+                'added': 'Added',
+                'deleted': 'Deleted',
+                'untracked': 'Untracked',
+                'renamed': 'Renamed'
             }
             status_text = status_map.get(file_detail['status'], file_detail['status'])
-            output.append(f"文件: {file_detail['path']} ({status_text})")
+            output.append(f"File: {file_detail['path']} ({status_text})")
             
             if file_detail['is_binary']:
-                output.append("类型: 二进制文件")
+                output.append("Type: Binary file")
             elif file_detail['diff_content']:
-                output.append("变更内容:")
+                output.append("Changes:")
                 output.append("-" * 30)
-                # 清理空行后再显示
+                # Clean empty lines before displaying
                 cleaned_content = self.clean_diff_content(file_detail['diff_content'])
                 output.append(cleaned_content)
                 output.append("-" * 30)
@@ -339,9 +339,9 @@ class GitDiffAnalyzer:
 
 
 if __name__ == "__main__":
-    # 命令行测试
+    # Command line test
     if len(sys.argv) < 2:
-        print("用法: python git_diff_analyzer.py <仓库路径> [最大行数]")
+        print("Usage: python git_diff_analyzer.py <repository_path> [max_lines]")
         sys.exit(1)
     
     repo_path = sys.argv[1]
@@ -353,5 +353,5 @@ if __name__ == "__main__":
         formatted_output = analyzer.format_output(result)
         print(formatted_output)
     except Exception as e:
-        print(f"错误: {e}")
+        print(f"Error: {e}")
         sys.exit(1)

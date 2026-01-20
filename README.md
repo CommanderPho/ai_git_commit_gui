@@ -1,260 +1,260 @@
-# Git AI Commit - 智能提交助手
+# Git AI Commit - Intelligent Commit Assistant
 
-> 🤖 基于AI的Git提交消息生成工具，让代码提交更智能、更规范
+> 🤖 AI-powered Git commit message generator for smarter, more standardized code commits
 
 [![PyPI version](https://badge.fury.io/py/git-ai-commit-gui.svg)](https://pypi.org/project/git-ai-commit-gui/)
 [![Python 3.12+](https://img.shields.io/badge/python-3.12+-blue.svg)](https://www.python.org/downloads/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 ![alt text](image.png)
-## 📖 项目介绍
+## 📖 Project Overview
 
-Git AI Commit 是一个现代化的Git提交助手，结合了AI技术和直观的图形界面，帮助开发者：
+Git AI Commit is a modern Git commit assistant that combines AI technology with an intuitive graphical interface to help developers:
 
-- 📊 **智能分析**：自动分析Git变更内容，生成结构化报告
-- 🤖 **AI生成**：使用GLM-4-Flash模型生成规范的提交消息
-- 🖥️ **图形界面**：提供友好的GUI界面，操作简单直观
-- ⚙️ **灵活配置**：支持自定义API配置和个性化设置
+- 📊 **Intelligent Analysis**: Automatically analyze Git changes and generate structured reports
+- 🤖 **AI Generation**: Generate standardized commit messages using the GLM-4-Flash model
+- 🖥️ **Graphical Interface**: Friendly GUI interface with simple and intuitive operation
+- ⚙️ **Flexible Configuration**: Support custom API configuration and personalized settings
 
-## ✨ 功能特性
+## ✨ Features
 
-### 核心功能
-- 🔍 **Git变更分析**：深度分析代码变更，识别修改、新增、删除的文件
-- 📝 **智能提交消息**：基于变更内容生成符合规范的提交消息
-- 🎯 **一键提交**：分析、生成、提交一站式完成
-- ⚡ **自动模式 (--auto)**：命令行自动执行完整流程，无需GUI交互
-- 💾 **配置管理**：持久化保存API配置和用户偏好
+### Core Features
+- 🔍 **Git Change Analysis**: Deep analysis of code changes, identifying modified, added, and deleted files
+- 📝 **Smart Commit Messages**: Generate standardized commit messages based on change content
+- 🎯 **One-Click Commit**: Complete workflow from analysis, generation, to commit
+- ⚡ **Auto Mode (--auto)**: Command-line automatic execution of complete workflow without GUI interaction
+- 💾 **Configuration Management**: Persistent storage of API configuration and user preferences
 
-### 界面特性
-- 🎨 **现代化UI**：基于PySide6的原生界面，响应迅速
-- 📱 **紧凑设计**：优化的窗口布局，节省屏幕空间
-- 🔄 **异步处理**：多线程处理，避免界面卡顿
-- 💡 **智能提示**：实时状态反馈和操作指导
+### Interface Features
+- 🎨 **Modern UI**: Native interface based on PySide6 with fast response
+- 📱 **Compact Design**: Optimized window layout to save screen space
+- 🔄 **Async Processing**: Multi-threaded processing to avoid UI freezing
+- 💡 **Smart Tips**: Real-time status feedback and operation guidance
 
-## 🚀 快速开始
+## 🚀 Quick Start
 
-### 🎯 一键启动 (最简单)
+### 🎯 One-Click Launch (Simplest)
 
-#### ⚡ 极速自动模式 (推荐)
+#### ⚡ Fast Auto Mode (Recommended)
 ```bash
-# 安装并自动提交 - 无需GUI交互
+# Install and auto-commit - no GUI interaction required
 curl -LsSf https://astral.sh/uv/install.sh | sh
 uv tool install git-ai-commit-gui
 cd /your/git/project
 git-ai-commit-gui --auto
 ```
 
-#### 🖥️ GUI界面模式
+#### 🖥️ GUI Interface Mode
 ```bash
-# 方式1：使用uv直接安装并运行 (推荐)
+# Method 1: Install and run directly with uv (Recommended)
 curl -LsSf https://astral.sh/uv/install.sh | sh
 uv tool install git-ai-commit-gui
 git-ai-commit-gui
 
-# 方式2：使用uv临时运行
+# Method 2: Temporary run with uv
 uv run --from git-ai-commit-gui git-ai-commit-gui
 ```
 
-### 系统要求
+### System Requirements
 - Python 3.12+
-- Git (已安装并配置)
-- 网络连接 (用于AI API调用)
+- Git (installed and configured)
+- Network connection (for AI API calls)
 
-### 安装方法
+### Installation Methods
 
-#### 🚀 使用 uv (推荐)
+#### 🚀 Using uv (Recommended)
 
-**方式1：全局安装 (推荐)**
+**Method 1: Global Installation (Recommended)**
 ```bash
-# 1. 安装 uv (如果尚未安装)
+# 1. Install uv (if not already installed)
 curl -LsSf https://astral.sh/uv/install.sh | sh
 
-# 2. 安装工具
+# 2. Install the tool
 uv tool install git-ai-commit-gui
 
-# 3. 直接使用
+# 3. Use directly
 git-ai-commit-gui
 ```
 
-**方式2：临时运行**
+**Method 2: Temporary Run**
 ```bash
-# 安装uv并临时运行
+# Install uv and run temporarily
 curl -LsSf https://astral.sh/uv/install.sh | sh
 uv run --from git-ai-commit-gui git-ai-commit-gui
 ```
 
-**方式3：从源码运行**
+**Method 3: Run from Source**
 ```bash
-# 1. 克隆项目
+# 1. Clone the project
 git clone https://github.com/duolabmeng6/ai_git_commit_gui.git
 cd ai_git_commit_gui
 
-# 2. 安装依赖并运行
+# 2. Install dependencies and run
 uv sync
 uv run git-ai-commit-gui
 ```
 
-#### 📦 使用 pip
+#### 📦 Using pip
 
 ```bash
-# 安装
+# Install
 pip install git-ai-commit-gui
 
-# 运行
+# Run
 git-ai-commit-gui
 ```
 
-#### 🛠️ 开发者安装
+#### 🛠️ Developer Installation
 
 ```bash
-# 1. 克隆项目
+# 1. Clone the project
 git clone https://github.com/duolabmeng6/ai_git_commit_gui.git
 cd ai_git_commit_gui
 
-# 2. 创建虚拟环境
+# 2. Create virtual environment
 python -m venv venv
 source venv/bin/activate  # Windows: venv\Scripts\activate
 
-# 3. 安装依赖
+# 3. Install dependencies
 pip install -e .
 
-# 4. 启动应用
+# 4. Launch application
 python gui_main.py
 ```
 
-## 📋 使用指南
+## 📋 Usage Guide
 
-### 首次配置
+### Initial Setup
 
-1. **启动应用**
+1. **Launch Application**
    ```bash
-   # 如果已全局安装
+   # If globally installed
    git-ai-commit-gui
 
-   # 或者使用uv临时运行
+   # Or run temporarily with uv
    uv run --from git-ai-commit-gui git-ai-commit-gui
    ```
 
-2. **配置API设置**
-   - 切换到"设置"标签页
-   - 输入API URL：`https://api.kenhong.com/v1`
-   - 输入API密钥
-   - 设置模型名称：`glm-4-flash`
-   - 点击"保存设置"
+2. **Configure API Settings**
+   - Switch to the "Settings" tab
+   - Enter API URL: `https://api.kenhong.com/v1`
+   - Enter API key
+   - Set model name: `glm-4-flash`
+   - Click "Save Settings"
 
-3. **选择Git仓库**
-   - 在"仓库路径"中输入或浏览选择Git仓库
-   - 应用会自动验证仓库有效性
+3. **Select Git Repository**
+   - Enter or browse to select a Git repository in "Repository Path"
+   - The app will automatically validate the repository
 
-### 基本工作流程
+### Basic Workflow
 
-1. **查看变更**：点击"查看变更信息"按钮，分析当前仓库的未提交变更
-2. **AI分析**：点击"AI总结变更"按钮，生成智能提交消息
-3. **执行提交**：确认提交消息后，点击"Git Commit"完成提交
+1. **View Changes**: Click the "View Changes" button to analyze uncommitted changes in the current repository
+2. **AI Analysis**: Click the "AI Summarize Changes" button to generate an intelligent commit message
+3. **Execute Commit**: After confirming the commit message, click "Git Commit" to complete the commit
 
-### 命令行使用
+### Command Line Usage
 
-#### 🚀 自动模式 (--auto)
+#### 🚀 Auto Mode (--auto)
 
-**一键自动提交** - 无需手动操作，自动完成整个流程：
+**One-Click Auto Commit** - Automatically complete the entire workflow without manual intervention:
 ```bash
-# 自动模式：分析变更 → AI生成提交消息 → 自动提交 → 关闭程序
+# Auto mode: Analyze changes → AI generate commit message → Auto commit → Close program
 git-ai-commit-gui --auto
 
-# 指定仓库路径的自动模式
+# Auto mode with specified repository path
 git-ai-commit-gui /path/to/repo --auto
 
-# 使用当前目录的自动模式
+# Auto mode using current directory
 git-ai-commit-gui ./ --auto
 
-# 从源码运行自动模式
+# Run auto mode from source
 uv run python gui_main.py --auto
 ```
 
-**自动模式特性：**
-- ⚡ **极速提交**：无需GUI交互，命令行一键完成
-- 🤖 **智能检测**：自动验证Git仓库和API配置
-- 🔄 **完整流程**：Git分析 → AI生成 → 自动提交
-- 🛡️ **安全退出**：遇到错误自动停止并显示详细信息
-- 📝 **实时反馈**：控制台显示执行进度和结果
+**Auto Mode Features:**
+- ⚡ **Fast Commit**: No GUI interaction, one-click completion from command line
+- 🤖 **Smart Detection**: Automatically validate Git repository and API configuration
+- 🔄 **Complete Workflow**: Git analysis → AI generation → Auto commit
+- 🛡️ **Safe Exit**: Automatically stop and show detailed information on errors
+- 📝 **Real-time Feedback**: Console displays execution progress and results
 
-#### 📋 手动模式 (GUI界面)
+#### 📋 Manual Mode (GUI Interface)
 
 ```bash
-# 分析指定仓库的变更
+# Analyze changes in specified repository
 uv run python git_diff_analyzer.py /path/to/repo 200
 
-# 启动GUI并指定仓库路径
+# Launch GUI with specified repository path
 git-ai-commit-gui /path/to/repo
 
-# 使用当前目录
+# Use current directory
 git-ai-commit-gui ./
 
-# 直接启动GUI（会使用当前目录）
+# Launch GUI directly (uses current directory)
 uv run python gui_main.py
 
-# 查看帮助信息
+# View help information
 git-ai-commit-gui --help
 ```
 
-### 使用示例
+### Usage Examples
 
-**场景1：🚀 极速自动提交 (推荐)**
+**Scenario 1: 🚀 Fast Auto Commit (Recommended)**
 ```bash
-# 进入项目目录，一键自动提交
+# Enter project directory and auto-commit with one command
 cd /your/project/directory
 git-ai-commit-gui --auto
 
-# 输出示例：
-# 自动模式：开始检查仓库路径: /your/project/directory
-# 自动模式：仓库路径有效，检查API配置...
-# 开始自动执行一键处理...
-# 自动处理完成：Git提交成功
+# Output example:
+# Auto mode: Starting to check repository path: /your/project/directory
+# Auto mode: Repository path valid, checking API configuration...
+# Starting automatic one-click processing...
+# Auto processing completed: Git commit successful
 ```
 
-**场景2：指定仓库的自动提交**
+**Scenario 2: Auto Commit with Specified Repository**
 ```bash
-# 无需进入目录，直接指定路径自动提交
+# No need to enter directory, specify path directly for auto-commit
 git-ai-commit-gui /path/to/another/repo --auto
 ```
 
-**场景3：快速查看变更内容 (GUI模式)**
+**Scenario 3: Quick View Changes (GUI Mode)**
 ```bash
-# 如果全局安装了
+# If globally installed
 git-ai-commit-gui
 
-# 或者使用uv临时运行
+# Or run temporarily with uv
 uv run --from git-ai-commit-gui git-ai-commit-gui
 ```
 
-**场景4：手动AI生成提交消息 (GUI模式)**
-1. 在GUI中点击"查看变更信息"
-2. 查看分析结果
-3. 点击"AI总结变更"
-4. 确认生成的提交消息
-5. 点击"Git Commit"完成提交
+**Scenario 4: Manual AI-Generated Commit Message (GUI Mode)**
+1. Click "View Changes" in the GUI
+2. Review the analysis results
+3. Click "AI Summarize Changes"
+4. Confirm the generated commit message
+5. Click "Git Commit" to complete the commit
 
-**场景5：CI/CD集成自动提交**
+**Scenario 5: CI/CD Integration Auto Commit**
 ```bash
-# 在CI/CD脚本中使用自动模式
+# Use auto mode in CI/CD scripts
 #!/bin/bash
 cd $PROJECT_DIR
 git add .
 if git diff --cached --quiet; then
-    echo "没有变更需要提交"
+    echo "No changes to commit"
 else
     git-ai-commit-gui --auto
 fi
 ```
 
-## ⚙️ 配置说明
+## ⚙️ Configuration
 
-### API配置
-- **API URL**：AI服务的API端点地址
-- **API Key**：访问AI服务的密钥
-- **模型名称**：使用的AI模型，默认为 `glm-4-flash`
+### API Configuration
+- **API URL**: API endpoint address for the AI service
+- **API Key**: Key for accessing the AI service
+- **Model Name**: AI model to use, default is `glm-4-flash`
 
-### 高级设置
-配置文件位置：`~/.git_ai_commit/config.json`
+### Advanced Settings
+Configuration file location: `~/.git_ai_commit/config.json`
 
 ```json
 {
@@ -275,112 +275,112 @@ fi
 }
 ```
 
-## 🛠️ 开发指南
+## 🛠️ Development Guide
 
-### 项目结构
+### Project Structure
 ```
 git_ai_commit/
-├── gui_main.py          # GUI主界面
-├── git_diff_analyzer.py # Git变更分析器
-├── ai_interface.py      # AI接口模块
-├── config.py           # 配置管理
-├── utils.py            # 工具函数
-├── pyproject.toml      # 项目配置
-└── README.md           # 项目文档
+├── gui_main.py          # GUI main interface
+├── git_diff_analyzer.py # Git change analyzer
+├── ai_interface.py      # AI interface module
+├── config.py           # Configuration management
+├── utils.py            # Utility functions
+├── pyproject.toml      # Project configuration
+└── README.md           # Project documentation
 ```
 
-### 开发环境设置
+### Development Environment Setup
 ```bash
-# 使用 uv 创建开发环境
+# Create development environment with uv
 uv sync --dev
 
-# 运行测试
+# Run tests
 uv run python -m pytest
 
-# 代码格式化
+# Code formatting
 uv run black .
 uv run isort .
 ```
 
-## 🔄 升级指南
+## 🔄 Upgrade Guide
 
-### 快速升级
+### Quick Upgrade
 
-**使用 uv tool (推荐):**
+**Using uv tool (Recommended):**
 ```bash
 uv tool upgrade git-ai-commit-gui
 ```
 
-**使用 pip:**
+**Using pip:**
 ```bash
 pip install --upgrade git-ai-commit-gui
 ```
 
-详细升级指南请查看：[UPGRADE_GUIDE.md](UPGRADE_GUIDE.md)
+For detailed upgrade instructions, see: [UPGRADE_GUIDE.md](UPGRADE_GUIDE.md)
 
-## ❓ 常见问题
+## ❓ FAQ
 
-### Q: 如何获取API密钥？
-A: 请联系API服务提供商获取有效的API密钥。确保密钥有足够的权限访问GLM-4-Flash模型。
+### Q: How to get an API key?
+A: Please contact the API service provider to obtain a valid API key. Ensure the key has sufficient permissions to access the GLM-4-Flash model.
 
-### Q: 应用启动失败怎么办？
-A: 请检查：
-- Python版本是否为3.12+
-- 是否正确安装了依赖：`uv sync`
-- 是否在Git仓库目录中运行
+### Q: What to do if the application fails to start?
+A: Please check:
+- Is Python version 3.12+?
+- Are dependencies correctly installed: `uv sync`
+- Are you running in a Git repository directory?
 
-### Q: AI分析失败怎么办？
-A: 请检查：
-- API密钥是否正确配置
-- 网络连接是否正常
-- API服务是否可用
+### Q: What to do if AI analysis fails?
+A: Please check:
+- Is the API key correctly configured?
+- Is the network connection working?
+- Is the API service available?
 
-### Q: 支持哪些Git操作？
-A: 目前支持：
-- 查看未提交的变更
-- 生成提交消息
-- 执行git add和git commit
-- 不支持push操作（需手动执行）
+### Q: What Git operations are supported?
+A: Currently supported:
+- View uncommitted changes
+- Generate commit messages
+- Execute git add and git commit
+- Push operations not supported (must be done manually)
 
-### Q: 自动模式 (--auto) 如何工作？
-A: 自动模式会按顺序执行以下步骤：
-1. 检查指定路径是否为有效的Git仓库
-2. 验证API配置是否完整
-3. 分析Git变更内容
-4. 调用AI生成提交消息
-5. 执行 `git add .` 和 `git commit`
-6. 自动关闭程序
+### Q: How does auto mode (--auto) work?
+A: Auto mode executes the following steps in sequence:
+1. Check if the specified path is a valid Git repository
+2. Verify API configuration is complete
+3. Analyze Git change content
+4. Call AI to generate commit message
+5. Execute `git add .` and `git commit`
+6. Automatically close the program
 
-### Q: 自动模式失败了怎么办？
-A: 自动模式会在控制台显示详细的错误信息：
-- **无效Git仓库**：确保在Git仓库目录中运行
-- **API配置错误**：先运行GUI模式配置API密钥
-- **没有变更**：确保有未提交的文件变更
-- **网络问题**：检查网络连接和API服务状态
+### Q: What to do if auto mode fails?
+A: Auto mode displays detailed error information in the console:
+- **Invalid Git repository**: Ensure you're running in a Git repository directory
+- **API configuration error**: First run GUI mode to configure API key
+- **No changes**: Ensure there are uncommitted file changes
+- **Network issues**: Check network connection and API service status
 
-### Q: 自动模式适合什么场景？
-A: 自动模式特别适合：
-- 🚀 **快速开发**：频繁的小改动快速提交
-- 🤖 **CI/CD集成**：自动化构建流程中的提交
-- ⚡ **命令行工作流**：不想打开GUI的开发者
-- 📝 **批量处理**：脚本化处理多个仓库
+### Q: What scenarios is auto mode suitable for?
+A: Auto mode is particularly suitable for:
+- 🚀 **Rapid Development**: Quick commits for frequent small changes
+- 🤖 **CI/CD Integration**: Commits in automated build processes
+- ⚡ **Command-line Workflow**: For developers who prefer not to open a GUI
+- 📝 **Batch Processing**: Scripted processing of multiple repositories
 
-## 🔧 故障排除
+## 🔧 Troubleshooting
 
-### 依赖安装问题
+### Dependency Installation Issues
 ```bash
-# 清理并重新安装
+# Clean and reinstall
 rm -rf .venv
 uv sync
 
-# 或使用传统方式
+# Or use traditional method
 pip install --upgrade pip
 pip install -e .
 ```
 
-### GUI界面问题
-- 确保系统支持Qt6
-- 在Linux上可能需要安装额外的系统包：
+### GUI Interface Issues
+- Ensure system supports Qt6
+- On Linux, additional system packages may be required:
   ```bash
   # Ubuntu/Debian
   sudo apt-get install python3-pyside6
@@ -389,31 +389,31 @@ pip install -e .
   sudo yum install python3-pyside6
   ```
 
-### 配置文件问题
-如果配置出现问题，可以删除配置文件重新开始：
+### Configuration File Issues
+If there are configuration problems, you can delete the config file and start over:
 ```bash
 rm -rf ~/.git_ai_commit/config.json
 ```
 
-## 📄 许可证
+## 📄 License
 
-本项目采用 MIT 许可证 - 查看 [LICENSE](LICENSE) 文件了解详情
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details
 
-## 🤝 贡献
+## 🤝 Contributing
 
-欢迎提交 Issue 和 Pull Request！
+Issues and Pull Requests are welcome!
 
-## 📞 联系方式
+## 📞 Contact
 
-如有问题或建议，请通过以下方式联系：
-- 提交 GitHub Issue
-- 发送邮件至：developer@example.com
+For questions or suggestions, please contact us via:
+- Submit a GitHub Issue
+- Send email to: developer@example.com
 
 ---
 
-⭐ 如果这个项目对你有帮助，请给它一个星标！
+⭐ If this project helps you, please give it a star!
 
-# 打赏
+# Donate
 ![alt text](image-1.png)
 
-<!-- 测试路径解析修复 -->
+<!-- Test path parsing fix -->

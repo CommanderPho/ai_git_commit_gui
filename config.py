@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-配置管理模块
-用于管理应用程序的配置信息，包括API设置、界面设置等
+Configuration Management Module
+Manages application configuration, including API settings, interface settings, etc.
 """
 
 import json
@@ -12,14 +12,14 @@ from typing import Dict, Any, Optional
 
 
 class ConfigManager:
-    """配置管理器类"""
+    """Configuration Manager class"""
     
     def __init__(self, config_file: str = "config.json"):
         """
-        初始化配置管理器
+        Initialize configuration manager
         
         Args:
-            config_file: 配置文件名
+            config_file: Configuration file name
         """
         self.config_file = Path.home() / ".git_ai_commit" / config_file
         self.config_file.parent.mkdir(exist_ok=True)
@@ -27,28 +27,28 @@ class ConfigManager:
         self.load_config()
     
     def _load_default_config(self) -> Dict[str, Any]:
-        """加载默认配置"""
-        default_prompt = """你是一名专业的软件工程师。
-仔细审查提供的上下文和即将提交到 Git 仓库的代码变更。
-为这些变更生成提交信息。
-提交信息必须使用祈使语气（例如"修复"而不是"修复了"）。
-提交信息的格式应如下：
-使用以下前缀：
-- **修复**（fix）
-- **功能**（feat）
-- **构建**（build）
-- **杂项**（chore）
-- **持续集成**（ci）
-- **文档**（docs）
-- **代码样式**（style）
-- **重构**（refactor）
-- **性能**（perf）
-- **测试**（test）
-只需回复提交信息本身，不要包含引号、注释或额外说明！
-示例：
-`修复 用户登录时的空指针异常`
-`功能 添加用户注册接口`
-`重构 优化订单处理逻辑`"""
+        """Load default configuration"""
+        default_prompt = """You are a professional software engineer.
+Carefully review the provided context and code changes that are about to be committed to the Git repository.
+Generate a commit message for these changes.
+The commit message must use imperative mood (e.g. "fix" not "fixed").
+The commit message format should be as follows:
+Use the following prefixes:
+- **fix**
+- **feat**
+- **build**
+- **chore**
+- **ci**
+- **docs**
+- **style**
+- **refactor**
+- **perf**
+- **test**
+Just reply with the commit message itself, do not include quotes, comments, or additional explanations!
+Examples:
+`fix null pointer exception during user login`
+`feat add user registration endpoint`
+`refactor optimize order processing logic`"""
 
         return {
             "api": {
@@ -69,26 +69,26 @@ class ConfigManager:
         }
     
     def load_config(self) -> None:
-        """从文件加载配置"""
+        """Load configuration from file"""
         try:
             if self.config_file.exists():
                 with open(self.config_file, 'r', encoding='utf-8') as f:
                     loaded_config = json.load(f)
-                    # 合并配置，保留默认值
+                    # Merge configuration, keep default values
                     self._merge_config(self._config, loaded_config)
         except (json.JSONDecodeError, IOError) as e:
-            print(f"配置文件加载失败，使用默认配置: {e}")
+            print(f"Failed to load configuration file, using default configuration: {e}")
     
     def save_config(self) -> None:
-        """保存配置到文件"""
+        """Save configuration to file"""
         try:
             with open(self.config_file, 'w', encoding='utf-8') as f:
                 json.dump(self._config, f, indent=2, ensure_ascii=False)
         except IOError as e:
-            print(f"配置文件保存失败: {e}")
+            print(f"Failed to save configuration file: {e}")
     
     def _merge_config(self, default: Dict, loaded: Dict) -> None:
-        """递归合并配置"""
+        """Recursively merge configuration"""
         for key, value in loaded.items():
             if key in default:
                 if isinstance(default[key], dict) and isinstance(value, dict):
@@ -98,14 +98,14 @@ class ConfigManager:
     
     def get(self, key_path: str, default=None) -> Any:
         """
-        获取配置值
+        Get configuration value
         
         Args:
-            key_path: 配置键路径，如 'api.url'
-            default: 默认值
+            key_path: Configuration key path, e.g. 'api.url'
+            default: Default value
             
         Returns:
-            配置值
+            Configuration value
         """
         keys = key_path.split('.')
         value = self._config
@@ -119,26 +119,26 @@ class ConfigManager:
     
     def set(self, key_path: str, value: Any) -> None:
         """
-        设置配置值
+        Set configuration value
         
         Args:
-            key_path: 配置键路径，如 'api.url'
-            value: 配置值
+            key_path: Configuration key path, e.g. 'api.url'
+            value: Configuration value
         """
         keys = key_path.split('.')
         config = self._config
         
-        # 导航到最后一级
+        # Navigate to last level
         for key in keys[:-1]:
             if key not in config:
                 config[key] = {}
             config = config[key]
         
-        # 设置值
+        # Set value
         config[keys[-1]] = value
     
     def get_api_config(self) -> Dict[str, str]:
-        """获取API配置"""
+        """Get API configuration"""
         return {
             "url": self.get("api.url", ""),
             "api_key": self.get("api.api_key", ""),
@@ -147,7 +147,7 @@ class ConfigManager:
         }
     
     def set_api_config(self, url: str, api_key: str, model: str, prompt: str = None) -> None:
-        """设置API配置"""
+        """Set API configuration"""
         self.set("api.url", url)
         self.set("api.api_key", api_key)
         self.set("api.model", model)
@@ -156,7 +156,7 @@ class ConfigManager:
         self.save_config()
     
     def get_ui_config(self) -> Dict[str, Any]:
-        """获取UI配置"""
+        """Get UI configuration"""
         return {
             "window_width": self.get("ui.window_width", 800),
             "window_height": self.get("ui.window_height", 600),
@@ -164,37 +164,37 @@ class ConfigManager:
         }
     
     def set_ui_config(self, **kwargs) -> None:
-        """设置UI配置"""
+        """Set UI configuration"""
         for key, value in kwargs.items():
             self.set(f"ui.{key}", value)
         self.save_config()
     
     def get_git_config(self) -> Dict[str, Any]:
-        """获取Git配置"""
+        """Get Git configuration"""
         return {
             "max_diff_lines": self.get("git.max_diff_lines", 200),
             "auto_stage": self.get("git.auto_stage", False)
         }
 
 
-# 全局配置管理器实例
+# Global configuration manager instance
 config_manager = ConfigManager()
 
 
 if __name__ == "__main__":
-    # 测试配置管理器
-    print("测试配置管理器...")
+    # Test configuration manager
+    print("Testing configuration manager...")
     
-    # 测试默认配置
-    print(f"默认API URL: {config_manager.get('api.url')}")
-    print(f"默认窗口大小: {config_manager.get('ui.window_width')}x{config_manager.get('ui.window_height')}")
+    # Test default configuration
+    print(f"Default API URL: {config_manager.get('api.url')}")
+    print(f"Default window size: {config_manager.get('ui.window_width')}x{config_manager.get('ui.window_height')}")
     
-    # 测试设置和获取
+    # Test setting and getting
     config_manager.set("api.api_key", "test-key")
-    print(f"设置后的API Key: {config_manager.get('api.api_key')}")
+    print(f"API Key after setting: {config_manager.get('api.api_key')}")
     
-    # 测试API配置
+    # Test API configuration
     api_config = config_manager.get_api_config()
-    print(f"API配置: {api_config}")
+    print(f"API configuration: {api_config}")
     
-    print("配置管理器测试完成")
+    print("Configuration manager test completed")
